@@ -1,0 +1,12 @@
+{
+  "resource": {
+    "aws_route_table": {
+      "cndi_aws_route_table": {
+        "tags": {
+          "Name": "RouteTable"
+        },
+        "vpc_id": "${aws_vpc.cndi_aws_vpc.id}"
+      }
+    }
+  }
+}

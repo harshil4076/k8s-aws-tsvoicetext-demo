@@ -1,0 +1,15 @@
+{
+  "resource": {
+    "aws_resourcegroups_group": {
+      "cndi_aws_resourcegroups_group": {
+        "name": "CNDIResourceGroup_${local.cndi_project_name}",
+        "tags": {
+          "Name": "CNDIResourceGroup_${local.cndi_project_name}"
+        },
+        "resource_query": {
+          "query": "{\"ResourceTypeFilters\":[\"AWS::AllSupported\"],\"TagFilters\":[{\"Key\":\"CNDIProject\",\"Values\":[\"k8s-aws-ts-voicetext\"]}]}"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "resource": {
+    "aws_lb_target_group_attachment": {
+      "cndi_aws_lb_target_group_attachment_for_port_argoport_y-tsvoice-node": {
+        "target_group_arn": "${aws_lb_target_group.cndi_aws_lb_target_group_for_port_argoport.arn}",
+        "target_id": "${aws_instance.cndi_aws_instance_y-tsvoice-node.id}"
+      }
+    }
+  }
+}

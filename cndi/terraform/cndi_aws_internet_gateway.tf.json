@@ -1,0 +1,12 @@
+{
+  "resource": {
+    "aws_internet_gateway": {
+      "cndi_aws_internet_gateway": {
+        "tags": {
+          "Name": "InternetGateway"
+        },
+        "vpc_id": "${aws_vpc.cndi_aws_vpc.id}"
+      }
+    }
+  }
+}

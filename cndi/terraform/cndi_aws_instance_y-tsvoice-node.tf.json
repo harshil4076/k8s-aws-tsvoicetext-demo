@@ -1,0 +1,29 @@
+{
+  "resource": {
+    "aws_instance": {
+      "cndi_aws_instance_y-tsvoice-node": {
+        "ami": "ami-0c1704bac156af62c",
+        "instance_type": "t3.large",
+        "tags": {
+          "Name": "y-tsvoice-node"
+        },
+        "root_block_device": [
+          {
+            "volume_size": 128,
+            "volume_type": "gp3",
+            "delete_on_termination": true
+          }
+        ],
+        "subnet_id": "${aws_subnet.cndi_aws_subnet[0].id}",
+        "vpc_security_group_ids": [
+          "${aws_security_group.cndi_aws_security_group.id}"
+        ],
+        "user_data_replace_on_change": true,
+        "user_data": "${templatefile(\"microk8s-cloud-init-controller.yml.tftpl\",{\"bootstrap_token\": \"${local.bootstrap_token}\", \"leader_node_ip\": \"${local.leader_node_ip}\"})}",
+        "depends_on": [
+          "aws_instance.cndi_aws_instance_x-tsvoice-node"
+        ]
+      }
+    }
+  }
+}

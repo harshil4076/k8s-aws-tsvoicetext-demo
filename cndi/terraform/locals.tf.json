@@ -1,0 +1,12 @@
+{
+  "locals": {
+    "aws_region": "us-east-1",
+    "leader_node_ip": "${aws_instance.cndi_aws_instance_x-tsvoice-node.private_ip}",
+    "bootstrap_token": "${random_password.cndi_join_token.result}",
+    "availability_zones": "${sort(setintersection(data.aws_ec2_instance_type_offerings.available_az_for_x-tsvoice-node_instance_type.locations,data.aws_ec2_instance_type_offerings.available_az_for_y-tsvoice-node_instance_type.locations))}",
+    "node_id_list": [
+      "${aws_instance.cndi_aws_instance_x-tsvoice-node.id}",
+      "${aws_instance.cndi_aws_instance_y-tsvoice-node.id}"
+    ]
+  }
+}

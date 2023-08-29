@@ -1,0 +1,28 @@
+{
+  "resource": {
+    "aws_instance": {
+      "cndi_aws_instance_x-tsvoice-node": {
+        "ami": "ami-0c1704bac156af62c",
+        "instance_type": "t3.large",
+        "tags": {
+          "Name": "x-tsvoice-node",
+          "CNDINodeRole": "leader"
+        },
+        "root_block_device": [
+          {
+            "volume_size": 128,
+            "volume_type": "gp3",
+            "delete_on_termination": true
+          }
+        ],
+        "subnet_id": "${aws_subnet.cndi_aws_subnet[0].id}",
+        "vpc_security_group_ids": [
+          "${aws_security_group.cndi_aws_security_group.id}"
+        ],
+        "user_data_replace_on_change": true,
+        "user_data": "${templatefile(\"microk8s-cloud-init-leader.yml.tftpl\",{\"bootstrap_token\": \"${local.bootstrap_token}\", \"git_repo\": \"${var.git_repo}\", \"git_password\": \"${var.git_password}\", \"git_username\": \"${var.git_username}\", \"sealed_secrets_private_key\": \"${base64encode(var.sealed_secrets_private_key)}\", \"sealed_secrets_public_key\": \"${base64encode(var.sealed_secrets_public_key)}\", \"argocd_admin_password\": \"${var.argocd_admin_password}\"})}",
+        "depends_on": []
+      }
+    }
+  }
+}

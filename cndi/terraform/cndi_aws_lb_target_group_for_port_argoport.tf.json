@@ -1,0 +1,14 @@
+{
+  "resource": {
+    "aws_lb_target_group": {
+      "cndi_aws_lb_target_group_for_port_argoport": {
+        "tags": {
+          "Name": "UserPortLBTargetGroup-argoport"
+        },
+        "port": 16443,
+        "protocol": "TCP",
+        "vpc_id": "${aws_vpc.cndi_aws_vpc.id}"
+      }
+    }
+  }
+}

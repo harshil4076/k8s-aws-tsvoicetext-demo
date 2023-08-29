@@ -1,0 +1,36 @@
+{
+  "data": [
+    {
+      "aws_ec2_instance_type_offerings": [
+        {
+          "available_az_for_x-tsvoice-node_instance_type": [
+            {
+              "filter": [
+                {
+                  "name": "instance-type",
+                  "values": [
+                    "t3.large"
+                  ]
+                }
+              ],
+              "location_type": "availability-zone"
+            }
+          ],
+          "available_az_for_y-tsvoice-node_instance_type": [
+            {
+              "filter": [
+                {
+                  "name": "instance-type",
+                  "values": [
+                    "t3.large"
+                  ]
+                }
+              ],
+              "location_type": "availability-zone"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

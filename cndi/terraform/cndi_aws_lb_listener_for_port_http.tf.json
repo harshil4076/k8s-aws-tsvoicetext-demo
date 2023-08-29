@@ -1,0 +1,20 @@
+{
+  "resource": {
+    "aws_lb_listener": {
+      "cndi_aws_lb_listener_for_port_http": {
+        "default_action": [
+          {
+            "target_group_arn": "${aws_lb_target_group.cndi_aws_lb_target_group_for_port_http.arn}",
+            "type": "forward"
+          }
+        ],
+        "load_balancer_arn": "${aws_lb.cndi_aws_lb.arn}",
+        "port": 80,
+        "protocol": "TCP",
+        "tags": {
+          "Name": "UserPortLBListener-http"
+        }
+      }
+    }
+  }
+}

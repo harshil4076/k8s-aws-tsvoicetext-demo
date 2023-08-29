@@ -1,0 +1,25 @@
+{
+  "apiVersion": "cert-manager.io/v1",
+  "kind": "ClusterIssuer",
+  "metadata": {
+    "name": "cluster-issuer"
+  },
+  "spec": {
+    "acme": {
+      "email": "tsvoicetext@email.com",
+      "server": "https://acme-v02.api.letsencrypt.org/directory",
+      "privateKeySecretRef": {
+        "name": "cluster-issuer-private-key"
+      },
+      "solvers": [
+        {
+          "http01": {
+            "ingress": {
+              "class": "public"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

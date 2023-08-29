@@ -1,0 +1,68 @@
+project_name: k8s-aws-ts-voicetext
+cndi_version: v1
+infrastructure:
+  cndi:
+    cert_manager:
+      email: tsvoicetext@email.com
+    open_ports:
+      - number: 16443
+        name: argoport
+    nodes:
+      - name: x-tsvoice-node
+        kind: ec2
+        role: leader
+        instance_type: t3.large
+        volume_size: 128
+      - name: y-tsvoice-node
+        kind: ec2
+        volume_size: 128
+
+cluster_manifests:
+  argo-ingress:
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: argocd-server-ingress
+      namespace: argocd
+      annotations:
+        cert-manager.io/cluster-issuer: cluster-issuer
+        kubernetes.io/tls-acme: 'true'
+        nginx.ingress.kubernetes.io/ssl-passthrough: 'true'
+        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+    spec:
+      tls:
+        - hosts:
+            - tsvoicetext.com
+          secretName: cluster-issuer-private-key
+      rules:
+        - host: tsvoicetext.com
+          http:
+            paths:
+              - path: /
+                pathType: Prefix
+                backend:
+                  service:
+                    name: argocd-server
+                    port:
+                      name: https
+applications:
+  tsvoicetext:
+    repoURL: https://github.com/harshil4076/ts-voice-text
+    path: charts/ts-voice-text
+    targetRevision: ts-voice-text-0.2.3
+    destinationNamespace: tsvoicetext
+    values:
+      appName: deployment-app
+      namespace: tsvoicetext
+      env:
+        NODE_ENV: "development"
+      image:
+          name: ghcr.io/harshil4076/ts-voice-text/server
+          tag: b21a1741327f6291a4bdbbe032f4cbbedcc6c794
+      imageCredentials:
+        registry: https://ghcr.io
+        username: usernane
+        password: password
+        email: name@email.com
+
+

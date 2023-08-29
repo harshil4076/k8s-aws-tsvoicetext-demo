@@ -1,0 +1,5 @@
+{
+  "locals": {
+    "cndi_project_name": "k8s-aws-ts-voicetext"
+  }
+}

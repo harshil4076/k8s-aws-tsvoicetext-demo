@@ -1,0 +1,47 @@
+{
+  "apiVersion": "argoproj.io/v1alpha1",
+  "kind": "Application",
+  "metadata": {
+    "name": "tsvoicetext",
+    "labels": {
+      "name": "tsvoicetext"
+    }
+  },
+  "spec": {
+    "project": "default",
+    "source": {
+      "helm": {
+        "version": "v3",
+        "values": "{\"appName\":\"deployment-app\",\"namespace\":\"tsvoicetext\",\"env\":{\"NODE_ENV\":\"development\"},\"image\":{\"name\":\"ghcr.io/harshil4076/ts-voice-text/server\",\"tag\":\"b21a1741327f6291a4bdbbe032f4cbbedcc6c794\"},\"imageCredentials\":{\"registry\":\"https://ghcr.io\",\"username\":\"usernane\",\"password\":\"password\",\"email\":\"name@email.com\"}}"
+      },
+      "repoURL": "https://github.com/harshil4076/ts-voice-text",
+      "path": "charts/ts-voice-text",
+      "targetRevision": "ts-voice-text-0.2.3"
+    },
+    "destination": {
+      "server": "https://kubernetes.default.svc",
+      "namespace": "tsvoicetext"
+    },
+    "syncPolicy": {
+      "automated": {
+        "prune": true,
+        "selfHeal": true,
+        "allowEmpty": false
+      },
+      "syncOptions": [
+        "Validate=false",
+        "CreateNamespace=true",
+        "PrunePropagationPolicy=foreground",
+        "PruneLast=false"
+      ],
+      "retry": {
+        "limit": 10,
+        "backoff": {
+          "duration": "5s",
+          "factor": 2,
+          "maxDuration": "4m"
+        }
+      }
+    }
+  }
+}
